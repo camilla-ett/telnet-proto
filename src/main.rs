@@ -1,9 +1,19 @@
 use std::io::Write;
 use std::net::TcpListener;
 
+static KASEISKI: &[u8] = "
+__  ___      ___           _______. _______  __          _______. __  ___  __  
+|  |/  /     /   \\         /       ||   ____||  |        /       ||  |/  / |  | 
+|  '  /     /  ^  \\       |   (----`|  |__   |  |       |   (----`|  '  /  |  | 
+|    <     /  /_\\  \\       \\   \\    |   __|  |  |        \\   \\    |    <   |  | 
+|  .  \\   /  _____  \\  .----)   |   |  |____ |  |  __.----)   |   |  .  \\  |  | 
+|__|\\__\\ /__/     \\__\\ |_______/    |_______||__| (__)_______/    |__|\\__\\ |__| 
+                                                                                
+".as_bytes();
+
 fn main() {
     // リスナーソケットを用意
-    let hostname = "127.0.0.1:23";
+    let hostname = "127.0.0.1:2323";
     
     let listener = TcpListener::bind(hostname);
     if let Err(e) = listener {
@@ -24,8 +34,7 @@ fn main() {
         }
 
         let mut tcp_stream = stream.unwrap().0;
-        let buffer = "\nWelcome to kasei.ski\nGo https://kasei.ski/\n\n  Thank you.\n\n".as_bytes();
-        match tcp_stream.write(&buffer) {
+        match tcp_stream.write(&KASEISKI) {
             Result::Ok(_) => {},
             Result::Err(e) => println!("{}", e)
         }
